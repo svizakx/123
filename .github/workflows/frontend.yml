@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.SSHUSER }}
           password: ${{ secrets.SSHPASSWORD }}
           script:
-            docker pull docker.pkg.github.com/rumsoft/vii-resource-management/frontend:head;
+            docker pull docker.pkg.github.com/dr124/vii-resource-management/frontend:head;
             docker kill frontend;
             docker stop frontend;
             docker rm frontend;
