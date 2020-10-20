@@ -38,4 +38,4 @@ jobs:
             docker stop frontend;
             docker rm frontend;
             docker rmi $(docker images --filter "dangling=true" -q --no-trunc);
-            docker run -d -p 8000:80 --name frontend docker.pkg.github.com/rumsoft/vii-resource-management/frontend:head
+            docker run -d -p 8000:80 --name frontend docker.pkg.github.com/dr124/vii-resource-management/frontend:head
