@@ -23,9 +23,9 @@ RUN npm install && npm run build
 # ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 
-FROM steebchen/nginx-spa:stable
-
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /build .
+# nginx state for serving content
+FROM iamfreee/docker-nginx-static-spa:latest
+# Set working directory to nginx asset directory
+COPY --from=builder /build /var/www/html
+# Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
