@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './Components/Home';
-import Login from './Components/Login';
-import Test from './Components/Test';
-import Error from './Components/Error';
+import HomePage from './Pages/HomePage';
+import LoginPage from './Pages/LoginPage';
+import TestPage from './Pages/TestPage';
+import ErrorPage from './Pages/ErrorPage';
 import Navbar from './Components/Navbar';
 
 class App extends Component {
@@ -12,10 +12,10 @@ class App extends Component {
       <main>
         <Navbar />
         <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/login" component={Login} />
-          <Route path="/test" component={Test} />
-          <Route component={Error} />
+          <Route path="/" component={HomePage} exact />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/test" component={TestPage} />
+          <Route component={ErrorPage} />
         </Switch>
       </main>
     )
