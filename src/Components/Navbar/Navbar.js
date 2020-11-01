@@ -14,12 +14,14 @@ export default class Navbar extends Component {
 
     render() {
         return (
-            <div>
-                <Link to="/">Home </Link>
-                { !AuthService.checkIfLogged() && <Link to="/login">Login </Link>}
-                <Link to="/test">Test </Link>
-                { AuthService.checkIfLogged() && <Link to="/" onClick={() => this.logout()}>Logout</Link>}
-            </div >
+            <nav class="navbar navbar-expand-sm bg-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><Link to="/"><a class="nav-link">Home </a></Link></li>
+                    <li class="nav-item">{ !AuthService.checkIfLogged() && <Link to="/login"><a class="nav-link">Login </a></Link>}</li>
+                    <li class="nav-item"><Link to="/test"><a class="nav-link">Test </a></Link></li>
+                    <li class="nav-item">{ AuthService.checkIfLogged() && <Link to="/" onClick={() => this.logout()}><a class="nav-link">Logout </a></Link>}</li>
+                </ul>
+            </nav>
         );
     }
 };

@@ -5,6 +5,7 @@ import LoginPage from './Pages/LoginPage';
 import TestPage from './Pages/TestPage';
 import ErrorPage from './Pages/ErrorPage';
 import Navbar from './Components/Navbar/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   render() {
