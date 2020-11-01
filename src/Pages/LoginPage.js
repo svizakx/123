@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginPanel from '../Components/LoginPanel'
+import LoginPanel from '../Components/LoginPanel/LoginPanel'
 
 export default class LoginPage extends Component {
 
