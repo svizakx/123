@@ -21,17 +21,17 @@ export default class Navbar extends Component {
           </li>
           {isLogged ? (
             <li className="nav-item">
-              <Link className="nav-link" onClick={() => AuthService.logout()}>
+              <Link to="/#" className="nav-link" onClick={() => AuthService.logout()}>
                 Logout
               </Link>
             </li>
           ) : (
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Login
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
               </Link>
-            </li>
-          )}
+              </li>
+            )}
         </ul>
       </nav>
     );
