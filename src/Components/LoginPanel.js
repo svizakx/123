@@ -31,7 +31,7 @@ export default class LoginPage extends Component {
                 "emailAddress": this.state.email,
                 "password": this.state.password
             }
-        )
+        );
 
         console.log(this.state.email);
         console.log(this.state.password);
