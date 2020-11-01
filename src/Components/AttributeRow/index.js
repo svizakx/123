@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import APIService from "../../Services/APIService";
+import AttributeService from "../../Services/AttributeService";
 
 export default class AttributeRow extends Component {
 
@@ -9,7 +9,7 @@ export default class AttributeRow extends Component {
         let attributeName = prompt("Podaj nową nazwę atrybutu.", this.props.data.name);
         if (attributeName !== null) {
             let id = this.props.data.id;
-            APIService.put(`Attribute/${id}`, { "name": attributeName })
+            AttributeService.editAttribute(id, attributeName)
                 .then(() => {
                     alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
                     window.location.reload(false);
@@ -27,7 +27,7 @@ export default class AttributeRow extends Component {
         e.preventDefault();
 
         let id = this.props.data.id;
-        APIService.delete(`Attribute/${id}`)
+        AttributeService.deleteAttribute(id)
             .then(res => {
                 alert("Usunięto atrybut o id " + id + ".");
                 window.location.reload(false);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AttributeRow from "../AttributeRow"
-import APIService from "../../Services/APIService";
+import AttributeService from "../../Services/AttributeService";
 
 export default class AdminPanel extends Component {
     constructor(props) {
@@ -11,10 +11,11 @@ export default class AdminPanel extends Component {
     }
 
     componentDidMount() {
-        APIService.get("Attribute/list").then((result) => {
-            const attributes = result.data;
-            this.setState({ attributes });
-        });
+        AttributeService.getList()
+            .then((result) => {
+                const attributes = result.data;
+                this.setState({ attributes });
+            });
     }
 
     handleAddClick(e) {
@@ -22,7 +23,7 @@ export default class AdminPanel extends Component {
 
         let attributeName = prompt("Podaj nazwę atrybutu");
         if (attributeName !== null) {
-            APIService.post('Attribute/', { "name": attributeName })
+            AttributeService.addAttribute(attributeName)
                 .then(() => {
                     alert("Dodano atrybut o nazwie " + attributeName + ".");
                     window.location.reload(false);
