@@ -1,6 +1,7 @@
 import APIService from "./APIService";
 
 const authToken = "auth_token";
+const roleToken = "role_token";
 
 export default class AuthService {
   static login(userData) {
@@ -11,6 +12,8 @@ export default class AuthService {
 
   static handleLogin(data) {
     window.localStorage.setItem(authToken, `${data.token.accessToken}`);
+    window.localStorage.setItem(roleToken, `${data.role}`);
+
     const params = new URLSearchParams(window.location.search);
     const requestedURL = params.get("requested_url");
     if (requestedURL !== null) {
@@ -26,6 +29,7 @@ export default class AuthService {
 
   static logout() {
     window.localStorage.removeItem(authToken);
+    window.localStorage.removeItem(roleToken);
     window.location = "/";
   }
 }

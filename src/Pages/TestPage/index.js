@@ -10,7 +10,7 @@ export default class TestPage extends Component {
   }
 
   componentDidMount() {
-    APIService.get("attributes").then((result) => {
+    APIService.get("Attribute/list").then((result) => {
       const attributes = result.data;
       this.setState({ attributes });
     });
