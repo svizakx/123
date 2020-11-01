@@ -13,9 +13,14 @@ export default class APIService {
             }
         };
 
-        return axios.get(`${this.API_URL}/${address}`, authHeader);
+        return axios.get(`${this.API_URL}/${address}`, authHeader)
+            .catch(e => {
+                if (e.response.status === 401) {
+                    window.location = "/login";
+                }
+                else throw (e);
+            })
     }
-
 
     static post(address, data) {
         let token = window.localStorage.getItem(authToken);
@@ -26,7 +31,11 @@ export default class APIService {
         };
 
         return axios
-            .post(`${this.API_URL}/${address}`, data, authHeader)
-
+            .post(`${this.API_URL}/${address}`, data, authHeader).catch(e => {
+                if (e.response.status === 401) {
+                    window.location = "/login";
+                }
+                else throw (e);
+            });
     }
 }

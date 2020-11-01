@@ -14,4 +14,10 @@ export default class AuthService {
     static handleLogin(data) {
         window.localStorage.setItem(authToken, `${data.token.accessToken}`);
     }
+
+    static checkIfLogged() {
+        return window.localStorage.getItem(authToken) !== null
+
+    }
+
 }

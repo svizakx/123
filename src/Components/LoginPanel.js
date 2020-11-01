@@ -13,6 +13,12 @@ export default class LoginPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if (AuthService.checkIfLogged()) {
+            window.location = "/"
+        }
+    }
+
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -26,13 +32,11 @@ export default class LoginPage extends Component {
                 "password": this.state.password
             }
         )
-            .catch(error => {
-                console.log(error);
-            })
 
         console.log(this.state.email);
         console.log(this.state.password);
     }
+
 
     render() {
         return (
