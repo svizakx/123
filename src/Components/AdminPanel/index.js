@@ -8,6 +8,8 @@ export default class AdminPanel extends Component {
         this.state = {
             attributes: [],
         };
+
+        this.handleAddClick = this.handleAddClick.bind(this);
     }
 
     componentDidMount() {
@@ -17,12 +19,29 @@ export default class AdminPanel extends Component {
         });
     }
 
+    handleAddClick(e) {
+        e.preventDefault();
+
+        let attributeName = prompt("Podaj nazwę atrybutu");
+        APIService.post('Attribute/', { "name": attributeName })
+            .then(res => {
+                console.log(res)
+                alert("Dodano atrybut o nazwie " + attributeName + ".");
+                window.location.reload(false);
+            })
+            .catch(e => {
+                if (e.response.status === 400) {
+                    alert("Taki atrybut już istnieje!")
+                } else throw e;
+            })
+    }
 
     render() {
         return (
             <div>
                 Logged in as Admin.
-                {this.state.attributes.map((x) => <AttributeRow data={x} key={x.id} />)}
+                {this.state.attributes.map((x) => <AttributeRow key={x.id} data={x} />)}
+                <button onClick={this.handleAddClick}>Dodaj atrybut</button>
             </div>
         );
     }

@@ -21,6 +21,14 @@ export default class APIService {
       .catch(this._handle401);
   }
 
+  static delete(address, data) {
+    return axios
+      .delete(`${this.API_URL}/${address}/${data}`, {
+        headers: this._getHeaders(),
+      })
+      .catch(this._handle401);
+  }
+
   static _getHeaders() {
     let token = window.localStorage.getItem(authToken);
     return {
