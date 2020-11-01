@@ -38,28 +38,35 @@ export default class LoginPage extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Email:
-                        <input
-                            type="text"
-                            name="email"
-                            onChange={this.handleChange} />
-                    </label>
-                    <br />
-                    <label>
-                        Hasło:
-                        <input
-                            type="password"
-                            name="password"
-                            onChange={this.handleChange} />
-                    </label>
-                    <br />
-                    <input
-                        type="submit"
-                        value="Wyślij" />
-                </form>
+            <div class="login-form">
+                <body>
+                    <form onSubmit={this.handleSubmit}>
+                        <h2 class="text-center">Panel logowania</h2>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="email"
+                                placeholder="e-mail"
+                                onChange={this.handleChange} 
+                            />
+                        </div>
+                            
+                        <div class="form-group">
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                placeholder="hasło"
+                                onChange={this.handleChange} 
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Zaloguj się</button>
+                        </div>
+                    </form>
+                </body>
             </div >
         )
     }
