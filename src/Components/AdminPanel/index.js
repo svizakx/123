@@ -25,15 +25,15 @@ export default class AdminPanel extends Component {
         let attributeName = prompt("Podaj nazwę atrybutu");
         if (attributeName !== null) {
             APIService.post('Attribute/', { "name": attributeName })
-            .then(() => {
-                alert("Dodano atrybut o nazwie " + attributeName + ".");
-                window.location.reload(false);
-            })
-            .catch(e => {
-                if (e.response.status === 400) {
-                    alert("Taki atrybut już istnieje!")
-                } else throw e;
-            })
+                .then(() => {
+                    alert("Dodano atrybut o nazwie " + attributeName + ".");
+                    window.location.reload(false);
+                })
+                .catch(e => {
+                    if (e.response.status === 400) {
+                        alert(e.response.data.message)
+                    } else throw e;
+                })
         }
     }
 

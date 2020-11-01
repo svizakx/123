@@ -12,7 +12,7 @@ export default class AttributeRow extends Component {
     handleEditClick(e) {
         e.preventDefault();
 
-        let attributeName = prompt("Podaj nową nazwę atrybutu " + this.props.data.name + ".");
+        let attributeName = prompt("Podaj nową nazwę atrybutu.", this.props.data.name);
         if (attributeName !== null) {
             APIService.put('Attribute/', this.props.data.id, { "name": attributeName })
                 .then(() => {
