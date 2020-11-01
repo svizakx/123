@@ -6,6 +6,9 @@ import TestPage from "./Pages/TestPage";
 import ErrorPage from "./Pages/ErrorPage";
 import Navbar from "./Components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
+import Redirector from "./Redirector";
 
 class App extends Component {
   render() {
@@ -18,6 +21,8 @@ class App extends Component {
           <Route path="/test" component={TestPage} />
           <Route component={ErrorPage} />
         </Switch>
+        <NotificationContainer />
+        <Redirector />
       </main>
     );
   }

@@ -11,7 +11,7 @@ export default class TestPage extends Component {
 
   componentDidMount() {
     APIService.get("Attribute/list").then((result) => {
-      const attributes = result.data;
+      const attributes = (result && result.data) || [];
       this.setState({ attributes });
     });
   }
@@ -21,7 +21,7 @@ export default class TestPage extends Component {
       <div>
         <h1>Test</h1>
         <ul>
-          {this.state.attributes.map((att) => (
+          {this.state.attributes.map((att, i) => (
             <li key={att.id}>
               {att.id}: {att.name}
             </li>

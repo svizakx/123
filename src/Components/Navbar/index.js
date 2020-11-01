@@ -1,11 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { EventService } from "../../Services";
 import AuthService from "../../Services/AuthService";
+import Events from "../../Services/Events";
 import "./index.css";
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogged: AuthService.isLogged(),
+    };
+
+    EventService.Subscribe(Events.Login, () => {
+      console.log("logged in");
+      this.setState({ isLogged: true });
+    });
+
+    EventService.Subscribe(Events.Logout, () => {
+      console.log("logged out");
+      this.setState({ isLogged: false });
+    });
+  }
+
   render() {
-    const isLogged = AuthService.isLogged();
+    const isLogged = this.state.isLogged;
     return (
       <nav className="navbar navbar-expand-sm bg-light">
         <ul className="navbar-nav">

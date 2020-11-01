@@ -1,4 +1,6 @@
 import axios from "axios";
+import Events from "./Events";
+import EventService from "./EventService";
 
 const authToken = "auth_token";
 
@@ -30,7 +32,7 @@ export default class APIService {
 
   static _handle401(e) {
     if (e.response.status === 401) {
-      window.location = "/login?requested_url=" + window.location;
+      EventService.Emit(Events.Unauthorized);
     } else throw e;
   }
 }

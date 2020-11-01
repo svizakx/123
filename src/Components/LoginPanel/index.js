@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import AuthService from "../../Services/AuthService";
 import "./index.css";
+import { NotificationManager } from "react-notifications";
+import { Redirect } from "react-router-dom";
+import { EventService, Events } from "../../Services";
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -8,16 +11,11 @@ export default class LoginPage extends Component {
     this.state = {
       email: "",
       password: "",
+      redirectUrl: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    if (AuthService.isLogged()) {
-      window.location = "/";
-    }
   }
 
   handleChange(event) {
@@ -30,10 +28,16 @@ export default class LoginPage extends Component {
     AuthService.login({
       emailAddress: this.state.email,
       password: this.state.password,
+    }).catch((x) => {
+      NotificationManager.error(x.message, "Couldn't log in");
     });
   }
 
   render() {
+    if (AuthService.isLogged()) {
+      return <Redirect to={this.state.redirectUrl} />;
+    }
+
     return (
       <div className="login-form">
         <form onSubmit={this.handleSubmit}>
