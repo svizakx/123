@@ -1,14 +1,24 @@
-import React from "react"
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import AuthService from '../Services/AuthService'
 
-function Navbar() {
-    return (
-        <div>
-            <Link to="/">Home </Link>
-            <Link to="/login">Login </Link>
-            <Link to="/test">Test </Link>
-        </div>
-    );
+export default class Navbar extends Component {
+
+    logout() {
+        localStorage.clear();
+
+        alert("you logged out");
+        this.forceUpdate();
+    }
+
+    render() {
+        return (
+            <div>
+                <Link to="/">Home </Link>
+                { !AuthService.checkIfLogged() && <Link to="/login">Login </Link>}
+                <Link to="/test">Test </Link>
+                { AuthService.checkIfLogged() && <Link to="/" onClick={() => this.logout()}>Logout</Link>}
+            </div >
+        );
+    }
 };
-
-export default Navbar
