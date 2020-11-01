@@ -1,64 +1,67 @@
-import React, { Component } from "react";
-import AuthService from "../Services/AuthService";
+import React, { Component } from 'react';
+import AuthService from '../Services/AuthService'
 
 export default class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+        };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    if (AuthService.checkIfLogged()) {
-      window.location = "/";
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-  }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
+    componentDidMount() {
+        if (AuthService.checkIfLogged()) {
+            window.location = "/"
+        }
+    }
 
-  handleSubmit(event) {
-    event.preventDefault();
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
 
-    AuthService.login({
-      emailAddress: this.state.email,
-      password: this.state.password
-    });
-  }
+    handleSubmit(event) {
+        event.preventDefault();
 
-  render() {
-    return (
-      <div class="login-panel">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <b>Email:</b>
-            <input
-              placeholder="Enter Email"
-              type="text"
-              name="email"
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            <b>Hasło:</b>
-            <input
-              placeholder="Enter Password"
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <input type="submit" value="Wyślij" />
-        </form>
-      </div>
-    );
-  }
+        AuthService.login(
+            {
+                "emailAddress": this.state.email,
+                "password": this.state.password
+            }
+        );
+    }
+
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Email:
+                        <input
+                            type="text"
+                            name="email"
+                            onChange={this.handleChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Hasło:
+                        <input
+                            type="password"
+                            name="password"
+                            onChange={this.handleChange} />
+                    </label>
+                    <br />
+                    <input
+                        type="submit"
+                        value="Wyślij" />
+                </form>
+            </div >
+        )
+    }
 }
+
+

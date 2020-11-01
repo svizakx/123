@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
-import LoginPage from "./Pages/LoginPage";
-import TestPage from "./Pages/TestPage";
-import ErrorPage from "./Pages/ErrorPage";
-import Navbar from "./Components/Navbar";
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import HomePage from './Pages/HomePage';
+import LoginPage from './Pages/LoginPage';
+import TestPage from './Pages/TestPage';
+import ErrorPage from './Pages/ErrorPage';
+import Navbar from './Components/Navbar';
 
 class App extends Component {
   render() {
@@ -18,7 +18,7 @@ class App extends Component {
           <Route component={ErrorPage} />
         </Switch>
       </main>
-    );
+    )
   }
 }
 
