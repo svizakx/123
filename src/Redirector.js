@@ -50,7 +50,7 @@ export default class Redirector extends Component {
     NotificationManager.info(
       "Zaloguj się aby zobaczyć żądaną stronę.",
       "Wymagane logowanie.",
-      10000
+      2500
     );
   }
 

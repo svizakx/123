@@ -3,7 +3,6 @@ import AuthService from "../../Services/AuthService";
 import "./index.css";
 import { NotificationManager } from "react-notifications";
 import { Redirect } from "react-router-dom";
-import { EventService, Events } from "../../Services";
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -37,7 +36,7 @@ export default class LoginPage extends Component {
 
     return (
       <div className="login-form">
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <h2 className="text-center">Panel logowania</h2>
           <div className="form-group">
             <input
@@ -45,7 +44,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="email"
               placeholder="e-mail"
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
 
@@ -55,7 +54,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="password"
               placeholder="hasło"
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
 

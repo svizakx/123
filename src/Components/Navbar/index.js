@@ -13,12 +13,10 @@ export default class Navbar extends Component {
     };
 
     EventService.Subscribe(Events.Login, () => {
-      console.log("logged in");
       this.setState({ isLogged: true });
     });
 
     EventService.Subscribe(Events.Logout, () => {
-      console.log("logged out");
       this.setState({ isLogged: false });
     });
   }
@@ -34,23 +32,32 @@ export default class Navbar extends Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/dashboard" className="nav-link">
+              Zarządzanie
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/test" className="nav-link">
               Test
             </Link>
           </li>
           {isLogged ? (
             <li className="nav-item">
-              <Link to="/#" className="nav-link" onClick={() => AuthService.logout()}>
+              <Link
+                to="/#"
+                className="nav-link"
+                onClick={() => AuthService.logout()}
+              >
                 Logout
               </Link>
             </li>
           ) : (
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">
+                Login
               </Link>
-              </li>
-            )}
+            </li>
+          )}
         </ul>
       </nav>
     );
