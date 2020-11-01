@@ -40,8 +40,8 @@ export default class LoginPage extends Component {
         return (
             <div class="login-form">
                 <form onSubmit={this.handleSubmit}>
-                    <h2 class="text-center">Panel logowania</h2>
-                    <div class="form-group">
+                    <h2 className="text-center">Panel logowania</h2>
+                    <div className="form-group">
                         <input
                             type="text"
                             class="form-control"
@@ -51,7 +51,7 @@ export default class LoginPage extends Component {
                         />
                     </div>
                             
-                    <div class="form-group">
+                    <div className="form-group">
                         <input
                             type="password"
                             class="form-control"
@@ -61,7 +61,7 @@ export default class LoginPage extends Component {
                         />
                     </div>
 
-                    <div class="form-group">
+                    <div className="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Zaloguj się</button>
                     </div>
                 </form>
