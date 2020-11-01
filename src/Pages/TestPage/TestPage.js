@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import APIService from '../Services/APIService';
+import APIService from '../../Services/APIService';
 
 export default class TestPage extends Component {
     constructor(props) {
