@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import UserPanel from "../../Components/UserPanel/index";
-import AdminPanel from "../../Components/AdminPanel/index";
+import UserPanel from "../../Components/UserPanel";
+import AdminPanel from "../../Components/AdminPanel";
 const roleToken = "role_token";
 
 export default class HomePage extends Component {
