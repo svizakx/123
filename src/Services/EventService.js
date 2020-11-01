@@ -6,8 +6,6 @@ export default class EventService {
   }
 
   static Emit(eventName) {
-    console.log("events:", this.events[eventName]);
-
     this.events[eventName] &&
       this.events[eventName].map((x) => {
         x();

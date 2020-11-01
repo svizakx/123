@@ -17,34 +17,11 @@ export default class Redirector extends Component {
       loginPage: "/login",
     };
 
-    EventService.Subscribe(Events.Login, () => {
-      const params = new URLSearchParams(window.location.search);
-      const requestedURL = params.get(this.config.redirectParam);
-
-      console.log(this.state);
-
-      this.setUrl(requestedURL || "/");
-      NotificationManager.success("Zalogowano");
-    });
-
-    EventService.Subscribe(Events.Logout, () => {
-      this.setUrl("/");
-      NotificationManager.success("Wylogowano");
-    });
-
-    EventService.Subscribe(Events.Unauthorized, () => {
-      NotificationManager.info(
-        "Zaloguj się aby zobaczyć żądaną stronę.",
-        "Wymagane logowanie."
-      );
-
-      let { search, pathname } = window.location;
-
-      const url = `${this.config.loginPage}?${this.config.redirectParam}=${
-        pathname + search
-      }`;
-      this.setUrl(url);
-    });
+    EventService.Subscribe(Events.Login, () => this._handleLogin());
+    EventService.Subscribe(Events.Logout, () => this._handleLogout());
+    EventService.Subscribe(Events.Unauthorized, () =>
+      this._handleUnauthorized()
+    );
   }
 
   render() {
@@ -52,7 +29,32 @@ export default class Redirector extends Component {
     return <>{redirect && <Redirect to={redirect} />}</>;
   }
 
-  setUrl(url) {
+  _handleLogin() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedURL = params.get(this.config.redirectParam);
+    this._setUrl(requestedURL || "/");
+    NotificationManager.success("Zalogowano");
+  }
+
+  _handleLogout() {
+    this._setUrl("/");
+    NotificationManager.success("Wylogowano");
+  }
+
+  _handleUnauthorized() {
+    const { search, pathname } = window.location;
+    const link = pathname + search;
+    const url = `${this.config.loginPage}?${this.config.redirectParam}=${link}`;
+    this._setUrl(url);
+
+    NotificationManager.info(
+      "Zaloguj się aby zobaczyć żądaną stronę.",
+      "Wymagane logowanie.",
+      10000
+    );
+  }
+
+  _setUrl(url) {
     this.setState({ redirectUrl: "" }, () => {
       this.setState({ redirectUrl: url });
     }); // hack to force reload
