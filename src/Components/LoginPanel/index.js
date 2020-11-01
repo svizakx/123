@@ -9,9 +9,6 @@ export default class LoginPage extends Component {
       email: "",
       password: "",
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +33,7 @@ export default class LoginPage extends Component {
   render() {
     return (
       <div className="login-form">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={() => this.handleSubmit}>
           <h2 className="text-center">Panel logowania</h2>
           <div className="form-group">
             <input
@@ -44,7 +41,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="email"
               placeholder="e-mail"
-              onChange={this.handleChange}
+              onChange={() => this.handleChange}
             />
           </div>
 
@@ -54,7 +51,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="password"
               placeholder="hasło"
-              onChange={this.handleChange}
+              onChange={() => this.handleChange}
             />
           </div>
 

@@ -8,8 +8,6 @@ export default class AdminPanel extends Component {
         this.state = {
             attributes: [],
         };
-
-        this.handleAddClick = this.handleAddClick.bind(this);
     }
 
     componentDidMount() {
@@ -42,7 +40,7 @@ export default class AdminPanel extends Component {
             <div>
                 Logged in as Admin.
                 {this.state.attributes.map((x) => <AttributeRow key={x.id} data={x} />)}
-                <button onClick={this.handleAddClick}>Dodaj atrybut</button>
+                <button onClick={() => this.handleAddClick}>Dodaj atrybut</button>
             </div>
         );
     }

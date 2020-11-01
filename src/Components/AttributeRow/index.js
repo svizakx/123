@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import APIService from "../../Services/APIService";
 
 export default class AttributeRow extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleEditClick = this.handleEditClick.bind(this);
-        this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    }
 
     handleEditClick(e) {
         e.preventDefault();
@@ -42,8 +36,8 @@ export default class AttributeRow extends Component {
         return (
             <div>
                 {this.props.data.id}: {this.props.data.name}
-                <button onClick={this.handleEditClick}>Edytuj</button>
-                <button onClick={this.handleDeleteClick}>Usuń</button>
+                <button onClick={() => this.handleEditClick}>Edytuj</button>
+                <button onClick={() => this.handleDeleteClick}>Usuń</button>
             </div>
         );
     }
