@@ -24,8 +24,7 @@ export default class AdminPanel extends Component {
 
         let attributeName = prompt("Podaj nazwę atrybutu");
         APIService.post('Attribute/', { "name": attributeName })
-            .then(res => {
-                console.log(res)
+            .then(() => {
                 alert("Dodano atrybut o nazwie " + attributeName + ".");
                 window.location.reload(false);
             })

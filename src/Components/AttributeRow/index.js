@@ -5,7 +5,24 @@ export default class AttributeRow extends Component {
     constructor(props) {
         super(props);
 
+        this.handleEditClick = this.handleEditClick.bind(this);
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    }
+
+    handleEditClick(e) {
+        e.preventDefault();
+
+        let attributeName = prompt("Podaj nową nazwę atrybutu " + this.props.data.name + ".");
+        APIService.put('Attribute/', this.props.data.id, { "name": attributeName })
+            .then(() => {
+                alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
+                window.location.reload(false);
+            })
+            .catch(e => {
+                if (e.response.status === 400) {
+                    alert("Taki atrybut już istnieje!")
+                } else throw e;
+            })
     }
 
     handleDeleteClick(e) {
@@ -22,6 +39,7 @@ export default class AttributeRow extends Component {
         return (
             <div>
                 {this.props.data.id}: {this.props.data.name}
+                <button onClick={this.handleEditClick}>Edytuj</button>
                 <button onClick={this.handleDeleteClick}>Usuń</button>
             </div>
         );
