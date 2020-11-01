@@ -13,16 +13,19 @@ export default class AttributeRow extends Component {
         e.preventDefault();
 
         let attributeName = prompt("Podaj nową nazwę atrybutu " + this.props.data.name + ".");
-        APIService.put('Attribute/', this.props.data.id, { "name": attributeName })
-            .then(() => {
-                alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
-                window.location.reload(false);
-            })
-            .catch(e => {
-                if (e.response.status === 400) {
-                    alert("Taki atrybut już istnieje!")
-                } else throw e;
-            })
+        if (attributeName !== null) {
+            APIService.put('Attribute/', this.props.data.id, { "name": attributeName })
+                .then(() => {
+                    alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
+                    window.location.reload(false);
+                })
+                .catch(e => {
+                    if (e.response.status === 400) {
+                        alert(e.response.data.message)
+                        console.log()
+                    } else throw e;
+                })
+        }
     }
 
     handleDeleteClick(e) {
