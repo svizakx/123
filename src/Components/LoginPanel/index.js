@@ -33,7 +33,7 @@ export default class LoginPage extends Component {
   render() {
     return (
       <div className="login-form">
-        <form onSubmit={() => this.handleSubmit}>
+        <form onSubmit={e => this.handleSubmit(e)}>
           <h2 className="text-center">Panel logowania</h2>
           <div className="form-group">
             <input
@@ -41,7 +41,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="email"
               placeholder="e-mail"
-              onChange={() => this.handleChange}
+              onChange={e => this.handleChange(e)}
             />
           </div>
 
@@ -51,7 +51,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="password"
               placeholder="hasło"
-              onChange={() => this.handleChange}
+              onChange={e => this.handleChange(e)}
             />
           </div>
 

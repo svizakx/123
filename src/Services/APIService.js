@@ -21,17 +21,17 @@ export default class APIService {
       .catch(this._handle401);
   }
 
-  static put(address, id, data) {
+  static put(address, data) {
     return axios
-      .put(`${this.API_URL}/${address}/${id}`, data, {
+      .put(`${this.API_URL}/${address}`, data, {
         headers: this._getHeaders(),
       })
       .catch(this._handle401);
   }
 
-  static delete(address, data) {
+  static delete(address) {
     return axios
-      .delete(`${this.API_URL}/${address}/${data}`, {
+      .delete(`${this.API_URL}/${address}`, {
         headers: this._getHeaders(),
       })
       .catch(this._handle401);

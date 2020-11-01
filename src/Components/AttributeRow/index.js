@@ -8,7 +8,8 @@ export default class AttributeRow extends Component {
 
         let attributeName = prompt("Podaj nową nazwę atrybutu.", this.props.data.name);
         if (attributeName !== null) {
-            APIService.put('Attribute/', this.props.data.id, { "name": attributeName })
+            let id = this.props.data.id;
+            APIService.put(`Attribute/${id}`, { "name": attributeName })
                 .then(() => {
                     alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
                     window.location.reload(false);
@@ -25,9 +26,10 @@ export default class AttributeRow extends Component {
     handleDeleteClick(e) {
         e.preventDefault();
 
-        APIService.delete('Attribute/', this.props.data.id)
+        let id = this.props.data.id;
+        APIService.delete(`Attribute/${id}`)
             .then(res => {
-                alert("Usunięto atrybut o id " + this.props.data.id + ".");
+                alert("Usunięto atrybut o id " + id + ".");
                 window.location.reload(false);
             })
     }
@@ -36,8 +38,8 @@ export default class AttributeRow extends Component {
         return (
             <div>
                 {this.props.data.id}: {this.props.data.name}
-                <button onClick={() => this.handleEditClick}>Edytuj</button>
-                <button onClick={() => this.handleDeleteClick}>Usuń</button>
+                <button onClick={e => this.handleEditClick(e)}>Edytuj</button>
+                <button onClick={e => this.handleDeleteClick(e)}>Usuń</button>
             </div>
         );
     }
