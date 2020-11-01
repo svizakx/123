@@ -26,10 +26,6 @@ export default class LoginPage extends Component {
                 "password": this.state.password
             }
         )
-            .then(data => {
-                console.log(data);
-                AuthService.handleLogin(data);
-            })
             .catch(error => {
                 console.log(error);
             })

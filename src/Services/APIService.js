@@ -6,10 +6,6 @@ export default class APIService {
     static API_URL = 'https://api.rum.software';
 
     static get(address) {
-        return this.rawGet(address).then(x => x.data);
-    }
-
-    static rawGet(address) {
         let token = window.localStorage.getItem(authToken);
         const authHeader = {
             headers: {
@@ -31,8 +27,6 @@ export default class APIService {
 
         return axios
             .post(`${this.API_URL}/${address}`, data, authHeader)
-            .then(response => {
-                return response.data;
-            });
+
     }
 }
