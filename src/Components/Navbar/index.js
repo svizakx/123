@@ -12,11 +12,11 @@ export default class Navbar extends Component {
       isLogged: AuthService.isLogged(),
     };
 
-    EventService.Subscribe(Events.Login, () => {
+    EventService.Subscribe(Events.Auth_Login, () => {
       this.setState({ isLogged: true });
     });
 
-    EventService.Subscribe(Events.Logout, () => {
+    EventService.Subscribe(Events.Auth_Logout, () => {
       this.setState({ isLogged: false });
     });
   }

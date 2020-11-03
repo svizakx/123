@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { NotificationManager } from "react-notifications";
 import { Redirect } from "react-router-dom";
-import { EventService } from "./Services";
+import { EventService, NotificationService } from "./Services";
 import Events from "./Services/Events";
 
 export default class Redirector extends Component {
@@ -17,9 +16,9 @@ export default class Redirector extends Component {
       loginPage: "/login",
     };
 
-    EventService.Subscribe(Events.Login, () => this._handleLogin());
-    EventService.Subscribe(Events.Logout, () => this._handleLogout());
-    EventService.Subscribe(Events.Unauthorized, () =>
+    EventService.Subscribe(Events.Auth_Login, () => this._handleLogin());
+    EventService.Subscribe(Events.Auth_Logout, () => this._handleLogout());
+    EventService.Subscribe(Events.Auth_Unauthorized, () =>
       this._handleUnauthorized()
     );
   }
@@ -33,12 +32,12 @@ export default class Redirector extends Component {
     const params = new URLSearchParams(window.location.search);
     const requestedURL = params.get(this.config.redirectParam);
     this._setUrl(requestedURL || "/");
-    NotificationManager.success("Zalogowano");
+    NotificationService.success("Zalogowano");
   }
 
   _handleLogout() {
     this._setUrl("/");
-    NotificationManager.success("Wylogowano");
+    NotificationService.success("Wylogowano");
   }
 
   _handleUnauthorized() {
@@ -47,10 +46,11 @@ export default class Redirector extends Component {
     const url = `${this.config.loginPage}?${this.config.redirectParam}=${link}`;
     this._setUrl(url);
 
-    NotificationManager.info(
-      "Zaloguj się aby zobaczyć żądaną stronę.",
-      "Wymagane logowanie.",
-      2500
+    NotificationService.close("login-required");
+    NotificationService.info(
+      "Wymagane logowanie",
+      "Zaloguj się aby zobaczyć żądaną stronę",
+      { toastId: "login-required" }
     );
   }
 

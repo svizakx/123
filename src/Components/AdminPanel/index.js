@@ -1,48 +1,59 @@
 import React, { Component } from "react";
-import AttributeRow from "../AttributeRow"
-import AttributeService from "../../Services/AttributeService";
+import {
+  AttributeService,
+  Events,
+  EventService,
+  NotificationService,
+} from "../../Services";
+import AttributeRow from "../AttributeRow";
 
 export default class AdminPanel extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            attributes: [],
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      attributes: [],
+    };
 
-    componentDidMount() {
-        AttributeService.getList()
-            .then((result) => {
-                const attributes = result.data;
-                this.setState({ attributes });
-            });
-    }
+    EventService.Subscribe(Events.Admin_AttributeRemoved, (id) => {
+      this.setState({
+        attributes: this.state.attributes.filter((x) => x.id !== id),
+      });
+    });
+  }
 
-    handleAddClick(e) {
-        e.preventDefault();
+  componentDidMount() {
+    AttributeService.getList().then((result) => {
+      const attributes = result.data;
+      this.setState({ attributes });
+    });
+  }
 
-        let attributeName = prompt("Podaj nazwę atrybutu");
-        if (attributeName !== null) {
-            AttributeService.addAttribute(attributeName)
-                .then(() => {
-                    alert("Dodano atrybut o nazwie " + attributeName + ".");
-                    window.location.reload(false);
-                })
-                .catch(e => {
-                    if (e.response.status === 400) {
-                        alert(e.response.data.message)
-                    } else throw e;
-                })
-        }
-    }
+  addAttributeClick(e) {
+    e.preventDefault();
 
-    render() {
-        return (
-            <div>
-                Logged in as Admin.
-                {this.state.attributes.map((x) => <AttributeRow key={x.id} data={x} />)}
-                <button onClick={e => this.handleAddClick(e)}>Dodaj atrybut</button>
-            </div>
-        );
+    let attributeName = prompt("Podaj nazwę nowego atrybutu");
+    if (attributeName !== null) {
+      AttributeService.addAttribute(attributeName)
+        .then(() => {
+          NotificationService.success(`Dodano atrybut "${attributeName}"`);
+        })
+        .catch((e) => {
+          NotificationService.apiError(e, "Nie udało się dodać atrybutu");
+        });
     }
+  }
+
+  render() {
+    return (
+      <div>
+        Logged in as Admin.
+        {this.state.attributes.map((x) => (
+          <AttributeRow key={x.id} data={x} />
+        ))}
+        <button onClick={(e) => this.addAttributeClick(e)}>
+          Dodaj atrybut
+        </button>
+      </div>
+    );
+  }
 }

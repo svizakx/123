@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import AuthService from "../../Services/AuthService";
 import "./index.css";
-import { NotificationManager } from "react-notifications";
 import { Redirect } from "react-router-dom";
+import { NotificationService } from "../../Services";
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class LoginPage extends Component {
       emailAddress: this.state.email,
       password: this.state.password,
     }).catch((x) => {
-      NotificationManager.error(x.message, "Couldn't log in");
+      NotificationService.apiError(x, "Nie udało się zalogować");
     });
   }
 

@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
 
   componentDidMount() {
     this.setState({ role: window.localStorage.getItem(role) });
-    if (!AuthService.isLogged()) EventService.Emit(Events.Unauthorized);
+    if (!AuthService.isLogged()) EventService.Emit(Events.Auth_Unauthorized);
   }
 
   render() {

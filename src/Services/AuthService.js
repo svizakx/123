@@ -10,7 +10,7 @@ export default class AuthService {
       let data = response.data;
       window.localStorage.setItem(authToken, `${data.token.accessToken}`);
       window.localStorage.setItem(role, `${data.role}`);
-      EventService.Emit(Events.Login);
+      EventService.Emit(Events.Auth_Login);
     });
   }
 
@@ -21,6 +21,6 @@ export default class AuthService {
   static logout() {
     window.localStorage.removeItem(authToken);
     window.localStorage.removeItem(role);
-    EventService.Emit(Events.Logout);
+    EventService.Emit(Events.Auth_Logout);
   }
 }

@@ -49,7 +49,7 @@ export default class APIService {
 
   static _handle401(e) {
     if (e.response.status === 401) {
-      EventService.Emit(Events.Unauthorized);
+      EventService.Emit(Events.Auth_Unauthorized);
       window.localStorage.removeItem(authToken);
       window.localStorage.removeItem(role);
     } else throw e;

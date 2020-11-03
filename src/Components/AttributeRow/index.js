@@ -1,47 +1,46 @@
 import React, { Component } from "react";
+import { Events, EventService, NotificationService } from "../../Services";
 import AttributeService from "../../Services/AttributeService";
 
 export default class AttributeRow extends Component {
+  handleEditClick(e) {
+    e.preventDefault();
 
-    handleEditClick(e) {
-        e.preventDefault();
+    const { name, id } = this.props.data;
 
-        let attributeName = prompt("Podaj nową nazwę atrybutu.", this.props.data.name);
-        if (attributeName !== null) {
-            let id = this.props.data.id;
-            AttributeService.editAttribute(id, attributeName)
-                .then(() => {
-                    alert("Zmieniono nazwę atrybutu na " + attributeName + ".");
-                    window.location.reload(false);
-                })
-                .catch(e => {
-                    if (e.response.status === 400) {
-                        alert(e.response.data.message)
-                        console.log()
-                    } else throw e;
-                })
-        }
+    let newAttributeName = prompt("Podaj nową nazwę atrybutu.", name);
+
+    if (newAttributeName !== null) {
+      AttributeService.editAttribute(id, newAttributeName)
+        .then(() => {
+          NotificationService.success(
+            `Pomyślnie zmieniono nazwę atrybutu`,
+            `${name} → ${newAttributeName}`
+          );
+        })
+        .catch((e) => {
+          NotificationService.apiError(e, "Nie udało się edytować atrybutu");
+        });
     }
+  }
 
-    handleDeleteClick(e) {
-        e.preventDefault();
+  handleDeleteClick(e) {
+    e.preventDefault();
+    let id = this.props.data.id;
+    AttributeService.deleteAttribute(id).then((res) => {
+      NotificationService.info(`Usunięto atrybut ${this.props.data.name}`);
+      EventService.Emit(Events.Admin_AttributeRemoved, id);
+    });
+  }
 
-        let id = this.props.data.id;
-        AttributeService.deleteAttribute(id)
-            .then(res => {
-                alert("Usunięto atrybut o id " + id + ".");
-                window.location.reload(false);
-            })
-    }
-
-    render() {
-        return (
-            <div>
-                {this.props.data.id}: {this.props.data.name}
-                <button onClick={e => this.handleEditClick(e)}>Edytuj</button>
-                <button onClick={e => this.handleDeleteClick(e)}>Usuń</button>
-            </div>
-        );
-    }
+  render() {
+    const { name, id } = this.props.data;
+    return (
+      <div>
+        {id}&gt; {name}
+        <button onClick={(e) => this.handleEditClick(e)}>Edytuj</button>
+        <button onClick={(e) => this.handleDeleteClick(e)}>Usuń</button>
+      </div>
+    );
+  }
 }
-

@@ -1,7 +1,8 @@
 const Events = Object.freeze({
-  Login: "login",
-  Logout: "logout",
-  Unauthorized: "Unauthorized",
+  Auth_Login: 1,
+  Auth_Logout: 2,
+  Auth_Unauthorized: 3,
+  Admin_AttributeRemoved: 4,
 });
 
 export default Events;

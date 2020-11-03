@@ -5,7 +5,7 @@ export default class EventService {
     this.events[eventName] = [...(this.events[eventName] || []), func];
   }
 
-  static Emit(eventName) {
-    this.events[eventName] && this.events[eventName].map((x) => x());
+  static Emit(eventName, params) {
+    this.events[eventName] && this.events[eventName].map((x) => x(params));
   }
 }
