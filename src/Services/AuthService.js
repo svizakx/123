@@ -1,23 +1,17 @@
-import APIService from "./APIService";
+import { APIService, EventService } from ".";
+import Events from "./Events";
 
 const authToken = "auth_token";
+const role = "role";
 
 export default class AuthService {
   static login(userData) {
     return APIService.post("auth/login", userData).then((response) => {
-      this.handleLogin(response.data);
+      let data = response.data;
+      window.localStorage.setItem(authToken, `${data.token.accessToken}`);
+      window.localStorage.setItem(role, `${data.role}`);
+      EventService.Emit(Events.Auth_Login);
     });
-  }
-
-  static handleLogin(data) {
-    window.localStorage.setItem(authToken, `${data.token.accessToken}`);
-    const params = new URLSearchParams(window.location.search);
-    const requestedURL = params.get("requested_url");
-    if (requestedURL !== null) {
-      window.location = requestedURL;
-    } else {
-      window.location = "/";
-    }
   }
 
   static isLogged() {
@@ -26,6 +20,7 @@ export default class AuthService {
 
   static logout() {
     window.localStorage.removeItem(authToken);
-    window.location = "/";
+    window.localStorage.removeItem(role);
+    EventService.Emit(Events.Auth_Logout);
   }
 }

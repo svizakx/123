@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import AuthService from "../../Services/AuthService";
 import "./index.css";
+import { Redirect } from "react-router-dom";
+import { NotificationService } from "../../Services";
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -8,16 +10,8 @@ export default class LoginPage extends Component {
     this.state = {
       email: "",
       password: "",
+      redirectUrl: null,
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    if (AuthService.isLogged()) {
-      window.location = "/";
-    }
   }
 
   handleChange(event) {
@@ -30,13 +24,19 @@ export default class LoginPage extends Component {
     AuthService.login({
       emailAddress: this.state.email,
       password: this.state.password,
+    }).catch((x) => {
+      NotificationService.apiError(x, "Nie udało się zalogować");
     });
   }
 
   render() {
+    if (AuthService.isLogged()) {
+      return <Redirect to={this.state.redirectUrl} />;
+    }
+
     return (
       <div className="login-form">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <h2 className="text-center">Panel logowania</h2>
           <div className="form-group">
             <input
@@ -44,7 +44,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="email"
               placeholder="e-mail"
-              onChange={this.handleChange}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
 
@@ -54,7 +54,7 @@ export default class LoginPage extends Component {
               className="form-control"
               name="password"
               placeholder="hasło"
-              onChange={this.handleChange}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
 

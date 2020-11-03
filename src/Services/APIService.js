@@ -1,6 +1,9 @@
 import axios from "axios";
+import Events from "./Events";
+import EventService from "./EventService";
 
 const authToken = "auth_token";
+const role = "role";
 
 export default class APIService {
   static API_URL = "https://api.rum.software";
@@ -21,6 +24,22 @@ export default class APIService {
       .catch(this._handle401);
   }
 
+  static put(address, data) {
+    return axios
+      .put(`${this.API_URL}/${address}`, data, {
+        headers: this._getHeaders(),
+      })
+      .catch(this._handle401);
+  }
+
+  static delete(address) {
+    return axios
+      .delete(`${this.API_URL}/${address}`, {
+        headers: this._getHeaders(),
+      })
+      .catch(this._handle401);
+  }
+
   static _getHeaders() {
     let token = window.localStorage.getItem(authToken);
     return {
@@ -30,7 +49,9 @@ export default class APIService {
 
   static _handle401(e) {
     if (e.response.status === 401) {
-      window.location = "/login?requested_url=" + window.location;
+      EventService.Emit(Events.Auth_Unauthorized);
+      window.localStorage.removeItem(authToken);
+      window.localStorage.removeItem(role);
     } else throw e;
   }
 }
